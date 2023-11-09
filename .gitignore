@@ -1,2 +1,3 @@
-.git*
+.gitattributes
+.gitconfig
 pec_viz_pub.ipynb

@@ -87,8 +87,7 @@ warnings.filterwarnings('ignore')
 # In[ ]:
 
 
-all_loads = pd.read_csv('https://raw.githubusercontent.com/kallejahn/Peconic/main/scenario_loads.csv',index_col=0)
-# all_loads = pd.read_csv('./scenario_loads.csv')
+all_loads = pd.read_csv('https://raw.githubusercontent.com/kallejahn/pec-dash/main/docs/scenario_loads.csv',index_col=0)
 all_loads.reset_index(drop=True,inplace=True)
 all_loads.date = all_loads.date.astype('datetime64[ns]')
 # create colormap for dataset
@@ -97,22 +96,16 @@ color_dict_loads = {x: cmap[i] for i, x in enumerate(all_loads.scenario.unique()
 all_loads['color'] = all_loads['scenario'].map(color_dict_loads)
 all_loads.loc[(all_loads.scenario=='0.3: Continued 2019 loading'), 'color'] = 'k'
 
-receptors = gpd.read_file('https://raw.githubusercontent.com/kallejahn/Peconic/main/peconic_receptors.geojson',index_col=0)
-# receptors = gpd.read_file('../gis/receptors/peconic_receptors.geojson')
-receptors.columns = ['receptor','desc','geometry']
+receptors = gpd.read_file('https://raw.githubusercontent.com/kallejahn/pec-dash/main/docs/peconic_receptors_pseudomerc.geojson',index_col=0)
+receptors.columns = ['receptor','desc','color','geometry']
 # create colormap for dataset
-color_dict_recs = {x: cmap[i] for i, x in enumerate(receptors.desc.unique())}
-receptors['color'] = receptors['desc'].map(color_dict_recs)
-
-# reproject to web mercator b/c holoviews only likes that!
-receptors_proj = receptors.to_crs(epsg=3857)
-first = receptors.iloc[::-1].to_crs(epsg=3857).iloc[-1,:]
-receptors_proj.iloc[0,:] = first#[0]
+# color_dict_recs = {x: cmap[i] for i, x in enumerate(receptors.desc.unique())}
+# receptors['color'] = receptors['desc'].map(color_dict_recs)
 
 # create an rec_index column that Selection1D can use
-replace_dict = dict(zip(receptors_proj.receptor,receptors_proj.index))
+replace_dict = dict(zip(receptors.receptor,receptors.index))
 all_loads['rec_ix'] = all_loads['receptor'].replace(replace_dict).values
-all_loads = all_loads.merge(receptors_proj[['receptor','desc']], on='receptor')
+all_loads = all_loads.merge(receptors[['receptor','desc']], on='receptor')
 
 
 # ## Make Dashboard
@@ -151,7 +144,7 @@ time_slider = pn.widgets.DateRangeSlider(
 basemap = hv.element.tiles.CartoLight()   #.EsriStreet()
 hover = HoverTool(tooltips = [('Receptor', '@desc')])
 tools = ['tap','box_select',hover]
-polys = gv.Polygons(receptors_proj,crs=ccrs.epsg(3857),vdims=['desc','color'])
+polys = gv.Polygons(receptors,crs=ccrs.epsg(3857),vdims=['desc','color'])
 # polys = receptors.hvplot(geo=True,hover_cols=['desc'], c='color',tools=tools, crs='EPSG:4456', projection='GOOGLE_MERCATOR')
 polys.opts(color='color',
            xlabel='',ylabel='',
@@ -279,7 +272,7 @@ def update_filename(index):
 # rec_stream.update(index=rec_stream.index)
 # pn.bind(update_filename, index=rec_stream.param.index, scenario=scenario_menu, dates=time_slider)
 # rec_stream.param.watch(update_filename, 'index')
-# rec_stream.param.trigger('index')A
+# rec_stream.param.trigger('index')
 
 
 # --- LAYOUT
@@ -293,19 +286,6 @@ body = pn.Column(basemap*polys,tap_plot)
 pane = pn.Row(side_panel,body)
 pane.servable()
 # pane.show(title='Peconic N Scenarios')
-
-
-# In[ ]:
-
-
-# out_path = Path('./0_panel_html')
-# out_path.mkdir(exist_ok=True)
-
-
-# In[ ]:
-
-
-# pane.save(out_path / 'test.html', embed=True, embed_json=True, save_path='./0_panel_html/',load_path='./0_panel_html/')
 
 
 
