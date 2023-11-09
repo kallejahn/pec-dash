@@ -1,0 +1,186 @@
+# ignore everything using "/*
+/*
+# "!" indicates an exception to that
+!.gitignore
+!.gitattributes
+!README.md
+!USGS_ID_white-on-green.png
+
+# track notebooks
+# stuff that isn't necessary?
+
+
+# track model data creation and simulation notebooks
+!LISUS_bounds.ipynb
+!LISUS_texture_db_management.ipynb
+!LISUS_texture_to_grid.ipynb
+!LISUS_variograms.ipynb
+
+!LISUS_bounds_pumping.ipynb
+!LISUS.ipynb
+!LISUS_1900_2019.ipynb
+!LISUS_1700_1889.ipynb
+!LISUS_pumping_to_grid
+!LISUS_precip_and_SWB.ipynb
+
+#track model data retrieval and creation of observation data
+!LISUS_obs_creation.ipynb
+!nwis_waterlevels_data_retrieval_and_postprocessing.ipynb
+!nwis_streamflow_data_retrieval_and_postprocessing.ipynb
+!LISUS_nassauobswell_analysis_v2.ipynb
+
+# track PEST workflow notebooks
+!LISUS_pest01_initial_sim_obs.ipynb
+!LISUS_pest02_trial.ipynb
+!LISUS_pest03_obs_weights.ipynb
+!LISUS_pest04_priorMC_postproc.ipynb
+!LISUS_pest05_iES_init_parvals.ipynb
+!LISUS_pest06_iES_obs_weight.ipynb
+!LISUS_pest07_iES_postproc.ipynb
+!LISUS_pest07.1_iES_dashboard.ipynb
+!LISUS_pest07.2_forward_test.ipynb
+
+# viz notebooks
+!calibration_present_figs.ipynb
+!LISUS_obs_viz.ipynb
+!LISUS_pumping_Cl.ipynb
+!LISUS_plots.ipynb
+!LISUS_plots_internal.ipynb
+
+
+# nitrate modeling
+!LISUS_nitrate_pet_waste.ipynb
+!LISUS_nitrate_load_creation.ipynb
+!LISUS_nitrate_warm_start.ipynb
+!LISUS_nitrate_run_steadystate.ipynb
+!LISUS_nitrate_run.ipynb
+
+# prep for insetting
+!LISUS_fresh_idomain.ipynb
+
+# scenarios and post-processing
+!LISUS_scenarios.ipynb
+!LISUS_scenarios_v2.ipynb
+!LISUS_scenarios_postproc.ipynb
+!LISUS_scenarios_postproc_v4.ipynb
+!LISUS_scenarios_zone_budgets.ipynb
+!LISUS_scenarios_matrices.ipynb
+
+# documentation notebooks
+!LISUS_model_doc_figs.ipynb
+!LISUS_model_doc_figs_intro.ipynb
+!LISUS_model_doc_figs_pest.ipynb
+
+# old notebooks, potentially not used
+!LISUS_well_analysis.ipynb
+!LISUS_rch_creation.ipynb
+!LISUS_nwis_chloride.ipynb
+!LISUS_pest_setup.ipynb
+!LISUS_pyemu.ipynb
+!LISUS_boreholedb_postprocessing.ipynb
+!LISUS_modelbuild.ipynb
+!LISUS_obs.ipynb
+
+# pest files
+!pest_obs
+pest_obs/old/*
+pest_obs/new_files_220727/*
+pest_obs/Test_RechargeStorageOnly.pst
+
+# gis files
+!gis/
+# ignore most of gis
+gis/*
+# but we do want some files
+!gis/zones_names_codes_pars.csv
+# don't ignore pest dir
+!gis/pest
+
+#don't ingnore gis/slr folder as these are key inputs for scenarios development
+!gis/slr
+# don't ignore the boundary dir
+!gis/boundaries
+# but do ignore everything in it
+gis/boundaries/* 
+# except for these boundaries files
+!gis/boundaries/MF_Well_Stress_6_10_2022.csv
+!gis/boundaries/MF_Wells_stress_07012022_postprocessed.csv
+!gis/boundaries/pumping_clay_JSF_Updated_NEWZ_07282022.csv
+!gis/boundaries/final_mf6_wells.csv
+!gis/boundaries/LISUS_post1920_bounds_20221013.csv
+!gis/boundaries/LISUS_post1920_bounds_20230609.csv
+
+!gis/chlorides_data_points/
+gis/chlorides_data_points/ChlorideDataPoints_12142022.*
+
+# don't ignore pumping data
+!gis/li_pumping/
+# but do ignore charts folder containing pngs of Q vs time vs interp Q by well
+gis/li_pumping/charts*
+gis/li_pumping/MF_STRESS_3_31_2023_EXPANDED_INFO.csv
+
+#don't ignore these locations
+!gis/li_waterdistricts
+!gis/cl_isochlors
+gis/cl_isochlors/Lay20*
+gis/cl_isochlors/isochlor_figs*
+gis/cl_isochlors/*.pptx
+gis/cl_isochlors/chloride_pts_for_percent_intrusion/
+!gis/model_grid/
+gis/model_grid/*
+!gis/model_grid/reg_grid_ref.tif
+!gis/li_streams/
+!gis/li_sensitive_areas/
+
+!gis/li_head_obs_data/
+
+
+# also want to track chloride geophysics data/notebook
+!gis/cl_geophysics/
+gis/cl_geophysics/*
+!gis/cl_geophysics/cond_cl_regression_data.csv
+!gis/cl_geophysics/em_chloride_analysis.ipynb
+!gis/cl_geophysics/chloride_thickness.ipynb
+!gis/cl_geophysics/Model_EMchloride
+# some of the texture arrays
+!arrays_from_don/
+arrays_from_don/*
+
+# don't ignore the mapping dir
+!gis/mapping_shapefiles
+# but do ignore everything in it
+gis/mapping_shapefiles/* 
+# except for these files
+!gis/mapping_shapefiles/coastal_states.*
+!gis/mapping_shapefiles/NorthEastStateInset_NoCoasts.*
+!gis/mapping_shapefiles/HudsonRiver_EastRiver_BronxRiver.*
+!gis/mapping_shapefiles/NHD_Waterbody_NYNJ.*
+!gis/mapping_shapefiles/NHD_Waterbody_CTRI.*
+!gis/mapping_shapefiles/NY_counties.*
+# scripts
+!scripts
+scripts/__pycache__/
+scripts/notebooks/
+
+# mf6 model files
+!lisus.slurm
+!lisus_2022
+
+# don't track large model files
+!lisus_2022/outputs/*
+lisus_2022/.*
+lisus_2022/outputs/*.hds
+lisus_2022/*.grb
+lisus_2022/outputs/*.ucn
+lisus_2022/outputs/*.bhd
+lisus_2022/outputs/*.cbc
+lisus_2022/outputs/*.csv
+lisus_2022/outputs/*.lst
+lisus_2022/*.lst
+
+#ignore .html outputs
+*.html
+
+!writing/
+writing/*
+!writing/pest_section.qmd
