@@ -87,7 +87,7 @@ warnings.filterwarnings('ignore')
 # In[ ]:
 
 
-all_loads = pd.read_csv('raw.githubusercontent.com/kallejahn/Peconic/main/docs/scenario_loads.csv',index_col=0)
+all_loads = pd.read_csv('raw.githubusercontent.com/kallejahn/pec-dash/main/docs/scenario_loads.csv',index_col=0)
 all_loads.reset_index(drop=True,inplace=True)
 all_loads.date = all_loads.date.astype('datetime64[ns]')
 # create colormap for dataset
@@ -96,7 +96,7 @@ color_dict_loads = {x: cmap[i] for i, x in enumerate(all_loads.scenario.unique()
 all_loads['color'] = all_loads['scenario'].map(color_dict_loads)
 all_loads.loc[(all_loads.scenario=='0.3: Continued 2019 loading'), 'color'] = 'k'
 
-receptors = gpd.read_file('raw.githubusercontent.com/kallejahn/Peconic/main/docs/peconic_receptors_pseudomerc.geojson',index_col=0)
+receptors = gpd.read_file('raw.githubusercontent.com/kallejahn/pec-dash/main/docs/peconic_receptors_pseudomerc.geojson',index_col=0)
 receptors.columns = ['receptor','desc','color','geometry']
 # create colormap for dataset
 # color_dict_recs = {x: cmap[i] for i, x in enumerate(receptors.desc.unique())}
